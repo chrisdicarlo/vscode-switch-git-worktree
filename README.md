@@ -10,6 +10,10 @@ To activate the extension, select "Switch worktree" from the Command Palette and
 
 ## Release Notes
 
+### 0.2.0
+
+- Fix regex
+ 
 ### 0.0.1
 
 Initial release
