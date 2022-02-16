@@ -1,6 +1,6 @@
 {
-  "name": "git-worktrees",
-  "displayName": "Git Worktrees",
+  "name": "vscode-switch-git-worktree",
+  "displayName": "Switch Git Worktree",
   "description": "Easily switch between Git working trees",
   "version": "0.0.1",
   "engines": {
