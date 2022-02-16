@@ -34,7 +34,7 @@ function getWorktreeList() {
     // let stdout = String(proc.stdout).replace(/^.*worktree .*\s*bare.*$/mg, "").replace(/^.*HEAD .*$/mg, "").replace(/^\s*$\s*/mg, "").trim();
 
     // let regex = /worktree (.*)\s*branch refs\/heads\/(.*)/g;
-    let regex = /worktree (.*)\s*.*\s*branch refs\/heads\/(.*);
+    let regex = /worktree (.*)\s*.*\s*branch refs\/heads\/(.*)/g;
     let matches = String(proc.stdout).matchAll(regex);
 
     let worktrees = [];
