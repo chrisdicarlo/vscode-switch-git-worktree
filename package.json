@@ -2,6 +2,10 @@
   "name": "vscode-switch-git-worktree",
   "displayName": "Switch Git Worktree",
   "description": "Easily switch between Git working trees",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chrisdicarlo/vscode-switch-git-worktree.git"
+ },
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.64.0"
