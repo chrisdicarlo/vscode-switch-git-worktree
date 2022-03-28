@@ -1,6 +1,6 @@
 # git-worktrees README
 
-Easily switch between Git worktrees.
+Easily switch between Git worktrees in VSCode.
 
 ## Features
 
