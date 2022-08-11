@@ -2,6 +2,8 @@
 
 Easily switch between Git worktrees in VSCode.
 
+[Visual Studio Marketplace Page](https://marketplace.visualstudio.com/items?itemName=chrisdicarlo.vscode-switch-git-worktree)
+
 ## Features
 
 A simple VS Code extension that allows you to quickly switch to a different Git worktree.
