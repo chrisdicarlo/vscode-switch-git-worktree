@@ -15,16 +15,32 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:git-worktrees.switchWorktree"
+    "onCommand:git-worktrees.switchWorktree",
+    "onCommand:git-worktrees.switchWorktreeView",
+    "onView:WorktreeList"
   ],
   "main": "./extension.js",
   "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "id": "WorktreeList",
+          "name": "Worktrees",
+          "contextualTitle": "Worktree list"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "git-worktrees.switchWorktree",
         "title": "Switch Worktree"
+      },
+      {
+        "command": "git-worktrees.switchWorktreeView",
+        "title": "Switch Worktree"
       }
     ]
+    
   },
   "scripts": {
     "lint": "eslint .",
