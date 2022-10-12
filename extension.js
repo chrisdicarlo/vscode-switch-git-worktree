@@ -1,17 +1,37 @@
 const vscode = require('vscode');
 const cp = require('child_process');
-
+const WorkTreeProvider = require('./WorkTreeProvider');
 /**
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
 	console.log('Congratulations, your extension "git-worktrees" is now active!');
 
-    let disposable = vscode.commands.registerCommand('git-worktrees.switchWorktree', function () {
+
+
+        const tree = vscode.window.createTreeView('WorktreeList', {treeDataProvider: new WorkTreeProvider.WorkTreeProvider(getWorktreeList()), showCollapseAll: true });
+        tree.onDidChangeSelection( e => {
+            let path = e[0].path;
+            let uri = vscode.Uri.file(path);
+
+            vscode.commands.executeCommand('vscode.openFolder', uri, {
+                forceNewWindow: false
+            });
+        });
+     context.subscriptions.push(tree);
+
+    let switchWorktreeCommand = vscode.commands.registerCommand('git-worktrees.switchWorktree', function () {
         let worktrees = getWorktreeList();
 
-        vscode.window.showQuickPick(worktrees.map(object => object.name)).then(worktree => {
-            let path = worktrees[worktrees.findIndex(object => object.name == worktree)].path;
+        vscode.window.showQuickPick(worktrees.map(object => {
+            return {
+                label: "📁"+object.worktreeName,
+                detail: object.branchName,
+                id:object.worktreeName
+            }
+        
+        })).then(worktree => {
+            let path = worktrees[worktrees.findIndex(object => object.worktreeName == worktree.id)].path;
             let uri = vscode.Uri.file(path);
 
             vscode.commands.executeCommand('vscode.openFolder', uri, {
@@ -21,7 +41,20 @@ function activate(context) {
 	});
 
 	// @ts-ignore
-	context.subscriptions.push(disposable);
+	context.subscriptions.push(switchWorktreeCommand);
+
+    let switchWorktreeViewCommand = vscode.commands.registerCommand('git-worktrees.switchWorktreeView', function (worktree) {
+                
+            let path = worktree.path;
+            let uri = vscode.Uri.file(path);
+
+            vscode.commands.executeCommand('vscode.openFolder', uri, {
+                forceNewWindow: false
+            });
+        });
+
+	// @ts-ignore
+	context.subscriptions.push(switchWorktreeViewCommand);
 }
 
 function deactivate() {}
@@ -40,7 +73,7 @@ function getWorktreeList() {
     let worktrees = [];
 
     for (const match of matches) {
-        worktrees.push({ name: match[2], path: match[1] });
+        worktrees.push({ worktreeName: match[1].match(/([^\/]*)\/*$/)[1] ,branchName: match[2], path: match[1] });
     }
 
     return worktrees;
@@ -50,3 +83,5 @@ module.exports = {
 	activate,
 	deactivate
 }
+
+
